@@ -2,7 +2,7 @@
 from classes.bot import Bot, Memory
 from classes.openai_gateway import MockGateway, OpenAIGateway
 
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '<OPENAI_API_KEY>'
 
 
 def main():
