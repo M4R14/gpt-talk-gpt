@@ -3,23 +3,29 @@ from classes.bot import Bot, Memory
 from classes.openai_gateway import MockGateway, OpenAIGateway
 
 OPENAI_API_KEY = '<OPENAI_API_KEY>'
+OPENAI_ENGINE = "text-curie-001"
+MOCK_GATEWAY = False
 
+def gatewayFactory():
+    if MOCK_GATEWAY:
+        return MockGateway()
 
-def main():
-    MAX_QUESTION = 5
-    OPENAI_ENGINE = "text-davinci-003"
-
-    # Create gateway
-    gateway = OpenAIGateway(
+    return OpenAIGateway(
         engine=OPENAI_ENGINE,
         api_key=OPENAI_API_KEY
     )
 
-    mock_gateway = MockGateway()
+
+def main():
+    MAX_QUESTION = 5
+   
+
+    # Create gateway
+    gateway = gatewayFactory()
 
     # Create bots
-    bot_a = Bot("A", mock_gateway, Memory())
-    bot_b = Bot("B", mock_gateway, Memory())
+    bot_a = Bot("A", gateway, Memory())
+    bot_b = Bot("B", gateway, Memory())
 
     bot_a.listen("staff", "\n".join([
         f"A can ask a maximum of {MAX_QUESTION} questions.",
